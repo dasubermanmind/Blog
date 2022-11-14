@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls', namespace='blog'))
+    # making the default route be pointing to the blogs
+    path('', include('blog.urls', namespace='blog'))
 ]
