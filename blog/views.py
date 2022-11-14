@@ -2,6 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
+from django.views.generic import ListView
+
+class PostListView(ListView):
+    """
+        This is the preferred manner of handling views, (these are the ENDPOINTS that serve the json dfr)
+        
+    """
+    queryset = Post.published.all()
+    context_object_name: str = 'posts'
+    paginate_by: int = 3
+    template_name: str = 'blog/post/list.html'
+    
+
 
 def post_list(request):
     post_list = Post.published.all()
