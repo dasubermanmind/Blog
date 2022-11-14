@@ -43,6 +43,10 @@ class Post(models.Model):
         return reverse("blog:post_detail", args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
     
     
+    def about_me():
+        return 'blog:about_me'
+    
+    
 class Comment(models.Model):
     # define the relationship to the post data model
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
