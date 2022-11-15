@@ -22,8 +22,7 @@ class PostListView(ListView):
 def post_list(request):
     post_list = Post.published.all()
     
-    # Pagination with 3 posts per page
-    paginator = Paginator(post_list, 3)
+    paginator = Paginator(post_list, 10)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)
@@ -75,7 +74,7 @@ def post_share(request, post_id):
         
     return render(request, 'blog/post/share.html', {'post': post, 'form': form})
 
-
+# TODO: Decide whether or not we should keep the commenting system in place
 @require_POST
 def post_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
