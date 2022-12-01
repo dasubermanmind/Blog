@@ -9,10 +9,6 @@ from django.views.decorators.http import require_POST
 from taggit.models import Tag
 
 class PostListView(ListView):
-    """
-        This is the preferred manner of handling views, (these are the ENDPOINTS that serve the json dfr)
-        
-    """
     queryset = Post.published.all()
     context_object_name: str = 'posts'
     paginate_by: int = 3
@@ -26,8 +22,6 @@ def post_list(request, tag_slug =None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         post_list = post_list.filter(tags__in=[tag])
-    
-    # post_list = Post.published.all()
     
     paginator = Paginator(post_list, 10)
     page_number = request.GET.get('page', 1)
